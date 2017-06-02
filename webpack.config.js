@@ -33,16 +33,19 @@ const definePlugin = new webpack.DefinePlugin({
   PRODUCTION: JSON.stringify(PRODUCTION)
 })
 
-// // This plugin is used to bundle CSS separately (https://webpack.js.org/guides/code-splitting-css/)
-// const extractText = require('extract-text-webpack-plugin');
-// const extractTextPlugin = new extractText('styles.css');
-
 const autoprefixer = require('autoprefixer');
+
+// This plugin copies local files to the build folder
+const CopyWebpack = require('copy-webpack-plugin');
+const copyWebpackPlugin = new CopyWebpack([
+  { from: './assets', to: './assets' }
+])
 
 // Put all shared (dev/prod) plugins in an array
 const plugins = [
   HtmlWebpackPluginConfig,
-  definePlugin
+  definePlugin,
+  copyWebpackPlugin
 ]
 
 
@@ -93,7 +96,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: './',
-    hot: true
+    hot: true,
+    host: '0.0.0.0',
+    port: 8080,
   },
 
   //entry file where the bundling happens
@@ -105,19 +110,6 @@ module.exports = {
     path: path.resolve('build'),
     filename: 'bundle.js'
   },
-
-  // babel-loader transforms jsx (for react) to regular js 
-  // module: {
-  //   loaders: [
-  //     { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-  //     { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-  //     { test: /\.(jpe?g|gif|png|svg)$/i, loader: 'url-loader?limit=10000', exclude: /node_modules/},
-  //     { test: /\.css$/, loader: 'style-loader', exclude: /node_modules/ },
-  //     { test: /\.css$/, loader: 'css-loader', query: { modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' }, exclude: /node_modules/ },
-  //     // { test: /\.scss$/, loader: 'sass-loader', exclude: /node_modules/ },
-  //     // { test: /\.scss$/, loader: 'postcss-loader', exclude: /node_modules/ },
-  //   ]
-  // },
 
   module: {
     rules: [
@@ -162,9 +154,10 @@ module.exports = {
         query: { compact: false }
       }, {
         loader: "css-loader",
-        query: { compact: false, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' }
+        query: { url: false, compact: false, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' },
       }, {
-        loader: "sass-loader" 
+        loader: "sass-loader",
+        query: { sourceMap: true }
       }, {
         loader: "postcss-loader",
         options: {
@@ -176,12 +169,5 @@ module.exports = {
     }
     ]
   },
-
-  resolve: {
-    alias: {
-      src: path.resolve(__dirname, 'src')
-    }
-  },
-
   plugins: plugins
 }

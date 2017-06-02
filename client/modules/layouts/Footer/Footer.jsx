@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import footer from './Footer.scss';
+import footer from './Footer.css';
 
 
 export default class Footer extends React.Component {

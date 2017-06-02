@@ -10,6 +10,6 @@ COPY package.json /usr/src/app
 RUN npm install
 COPY . /usr/src/app
 
-EXPOSE 8000
+EXPOSE 8080
 CMD ["npm", "start"]
 
