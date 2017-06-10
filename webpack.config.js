@@ -22,7 +22,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 // Webpack hot loading in development
 const HMRPlugin = new webpack.HotModuleReplacementPlugin();
 
-const uglifyPlugin = new webpack.optimize.UglifyJsPlugin();
+const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({minimize:true});
 
 // This plugin makes sure that common dependcies will not be in every single module
 const commonChunksPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
@@ -45,7 +45,7 @@ const copyWebpackPlugin = new CopyWebpack([
 const plugins = [
   HtmlWebpackPluginConfig,
   definePlugin,
-  copyWebpackPlugin
+  copyWebpackPlugin,
 ]
 
 
@@ -69,7 +69,7 @@ if (DEVELOPMENT) {
     // entry point for the app
     './client/index.js',
   ]
-
+  plugins.push(uglifyPlugin);
 	plugins.push(HMRPlugin);
 } else {
 
@@ -157,7 +157,12 @@ module.exports = {
         query: { url: false, compact: false, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' },
       }, {
         loader: "sass-loader",
-        query: { sourceMap: true }
+        options: {
+          data: "@import 'config'; ",
+          includePaths: [
+            path.resolve(__dirname, './client/')
+          ]
+        }
       }, {
         loader: "postcss-loader",
         options: {
@@ -167,7 +172,9 @@ module.exports = {
         }
       }]
     }
+
     ]
   },
+  
   plugins: plugins
 }
