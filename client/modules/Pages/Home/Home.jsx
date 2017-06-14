@@ -2,7 +2,8 @@ import React from 'react';
 
 import Navigation from '../components/Header/Navigation.jsx';
 import Footer from '../components/Footer/Footer.jsx';
-import SearchBar from '../../App/components/SearchBar/SearchBar.jsx'
+import SearchBar from '../../App/components/SearchBar/containers/SearchBarContainer.jsx'
+
 
 import styles from './Home.scss';
 

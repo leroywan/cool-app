@@ -41,7 +41,7 @@ $header-height: $header-inner-height + 2*$header-padding;
 		padding-left: 20px;
 		font-size: 14px;
 
-		i {
+		i, svg {
 			font-size: 20px;
 			padding-right: 6px;
 			transform: translateY(-2px);

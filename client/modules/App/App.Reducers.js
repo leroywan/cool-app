@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
-import { ADD_TOAST } from './App.Actions';
+import { SET_SEARCH_QUERY } from './App.Actions';
 
 export default function app(state = [], action) {
+	console.log('in the reducer...')
+
 	switch (action.type) {
-		case (ADD_TOAST):
-			return { 
+		case (SET_SEARCH_QUERY):
+			console.log('SETTING search query...');
+			return {
 				...state, 
-				text: action.text
+				searchQuery: action.searchQuery
 			}
 
 		default:
+			console.log('default action...')
 			return state
 	}
 }

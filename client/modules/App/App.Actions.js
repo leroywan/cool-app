@@ -1,8 +1,9 @@
-export const SHOW_TOAST = 'SHOW_TOAST';
+export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
 
-export function showToast(text){
+export function setSearch(text){
+	console.log('the action...')
 	return {
-		type: SHOW_TOAST,
-		text: text
+		type: SET_SEARCH_QUERY,
+		searchQuery: text
 	}
 }

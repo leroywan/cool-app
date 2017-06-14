@@ -69,7 +69,6 @@ if (DEVELOPMENT) {
     // entry point for the app
     './client/index.js',
   ]
-  plugins.push(uglifyPlugin);
 	plugins.push(HMRPlugin);
 } else {
 
