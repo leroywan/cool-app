@@ -56,5 +56,9 @@
     "dev-server": "NODE_ENV=development PORT=8080 nodemon ./index.js",
     "build": "NODE_ENV=production webpack -p --config ./webpack.config.js",
     "serve": "NODE_ENV=production PORT=8080 node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "path": "^0.12.7"
   }
 }
