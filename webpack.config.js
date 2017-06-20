@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
@@ -41,11 +42,17 @@ const copyWebpackPlugin = new CopyWebpack([
   { from: './assets', to: './assets' }
 ])
 
+// Extract text from a bundle into a separate file
+const ExtractTextPluginConfig = new ExtractTextPlugin("styles.css");
+
+
 // Put all shared (dev/prod) plugins in an array
 const plugins = [
   HtmlWebpackPluginConfig,
   definePlugin,
   copyWebpackPlugin,
+  ExtractTextPluginConfig,
+
 ]
 
 
@@ -97,7 +104,13 @@ module.exports = {
     contentBase: './',
     hot: true,
     host: '0.0.0.0',
-    port: 8080,
+    port: 3000,
+    proxy: {
+      '^/*': {
+        target: 'http://localhost:8080/',
+        secure: false
+      }
+    }
   },
 
   //entry file where the bundling happens
@@ -148,28 +161,49 @@ module.exports = {
     // Setup loaders for css/scss files
     {
       test: /\.s?css$/,
-      use: [{
-        loader: "style-loader", 
-        query: { compact: false }
-      }, {
-        loader: "css-loader",
-        query: { url: false, compact: false, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' },
-      }, {
-        loader: "sass-loader",
-        options: {
-          data: "@import 'config'; ",
-          includePaths: [
-            path.resolve(__dirname, './client/')
-          ]
-        }
-      }, {
-        loader: "postcss-loader",
-        options: {
-          plugins: function() {
-            return [autoprefixer];
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: [
+        'css-loader', 
+        { loader: "sass-loader",
+          options: {
+            data: "@import 'config'; ",
+            includePaths: [
+              path.resolve(__dirname, './client/')
+            ]
           }
-        }
-      }]
+        }, 
+        { loader: "postcss-loader",
+          options: {
+            plugins: function() {
+              return [autoprefixer];
+            }
+          }
+        }]
+      })
+
+      // [{
+      //   loader: 'style-loader',
+      //   query: { compact: false }
+      // }, {
+      //   loader: "css-loader",
+      //   query: { url: false, compact: false, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' },
+      // }, {
+      //   loader: "sass-loader",
+      //   options: {
+      //     data: "@import 'config'; ",
+      //     includePaths: [
+      //       path.resolve(__dirname, './client/')
+      //     ]
+      //   }
+      // }, {
+      //   loader: "postcss-loader",
+      //   options: {
+      //     plugins: function() {
+      //       return [autoprefixer];
+      //     }
+      //   }
+      // }]
     }
 
     ]

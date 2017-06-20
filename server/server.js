@@ -2,12 +2,41 @@
 // Module Dependencies
 // ===============================================================================================
 
+// express
 import express from 'express';
+
+// utilities 
 import path from 'path';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
 
+// data
 import mongoose from 'mongoose';
 import dummyData from './utils/dummyData';
+import User from './models/User';
+
+// controllers
+
+// application routes
+import appRoutes from './routes/routes';
+
+
+
+// ===============================================================================================
+// Express Configurations
+// ===============================================================================================
+const app = module.exports = new express();
+
+app.use(express.static(path.resolve(__dirname, '..', 'build')));
+
+// Use body parser to get POST requests
+app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({     
+    extended: true
+}));
 
 
 // ===============================================================================================
@@ -18,69 +47,35 @@ import dummyData from './utils/dummyData';
 dotenv.config();
 dotenv.load({ path: '../.env' });
 
+// Log requests to console
+app.use(morgan('dev'));
 
 // Mongoose promises are deprecated, use native promises
 mongoose.Promise = global.Promise;
-// Connect to MongoLab 
 mongoose.connect(process.env.MONGOLAB_URI, (err) => {
   if (err) {
     console.error('Please make sure Mongodb is installed and running!');
     throw err;
   }
 
-  // Add dummy data
   dummyData();
 });
 
-
-// ===============================================================================================
-// Express Configurations
-// ===============================================================================================
-const app = new express();
-
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
+// Initialize passport after database set up
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 
 // ===============================================================================================
 // Set Up App Routes
 // ===============================================================================================
 
-app.get('/test', (req, res) => {
-  let testData = [
-    {
-      username: 'Tom',
-      food: 'Pickles'
-    },
-    {
-      username: 'Jim',
-      food: 'Rice'
-    },
-    {
-      username: 'Bloop',
-      food: 'Steak'
-    }
-  ]
-  res.json(testData)
-});
+appRoutes.setUserRoutes(app);
 
 // Always return the main index.html, so react-router renders the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
-
-
-// ===============================================================================================
-// Set Up Authentication Routes
-// ===============================================================================================
-
-
-
-// ===============================================================================================
-// Set Up API Routes
-// ===============================================================================================
-
-
-
 
 
 // ===============================================================================================
@@ -92,6 +87,5 @@ app.listen((process.env.PORT || 3000), (error) => {
     console.log('This app is running on port: '+ (process.env.PORT || 3000) +'!'); // eslint-disable-line
   }
 });
-
 
 export default app;

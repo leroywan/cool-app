@@ -12,6 +12,7 @@ import NotFound from './Pages/NotFound/NotFound.jsx';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+
 // enable tap event
 injectTapEventPlugin();
 
@@ -26,6 +27,7 @@ export default class App extends React.Component {
 		      <Switch>
 				    <Route exact path='/' component={Home}/>
 				    <Route exact path='/about' component={About}/>
+				    <Route exact path='/login' component={About}/>
 				    <Route path='*' component={NotFound}/>
 			  	</Switch>
 		 	  </MuiThemeProvider>

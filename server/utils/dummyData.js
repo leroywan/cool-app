@@ -1,32 +1,26 @@
-import Posting from '../models/Posting';
+import User from '../models/User';
 
 export default function () {
-  Posting.count().exec((err, count) => {
+  User.count().exec((err, count) => {
     if (count > 0) {
       return;
     }
     
-    const posting1 = new Posting({
-      driverName: 'Sam',
-      description: 'Driving from Toronto to Montreal pickup at this location at 5:00pm. Please be a nice person.',
-      startingPoint: 'Toronto',
-      destination: 'Montreal',
-      carModel: 'Honda CRV',
-      seatsAvailable: 4,
-      petsAllowed: true
+    const user1 = new User({
+      username: 'Sam',
+      email: 'somebody@email.com',
+      password: '123456',
+      role: 'Normal'
     })
 
-    const posting2 = new Posting({
-      driverName: 'Tom',
-      description: 'Driving from Toronto to Ottawa pickup at this location at 5:00pm. Please be a nice person.',
-      startingPoint: 'Toronto',
-      destination: 'Ottawa',
-      carModel: 'Honda Civic',
-      seatsAvailable: 4,
-      petsAllowed: true
+    const user2 = new User({
+      username: 'Tom',
+      email: 'tom@email.com',
+      password: 'lololol',
+      role: 'Admin'
     })
 
-    Posting.create([posting1, posting2], (error) => {
+    User.create([user1, user2], (error) => {
       if (!error) {
         // console.log('ready to go....');
       }
