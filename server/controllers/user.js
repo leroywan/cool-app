@@ -1,19 +1,21 @@
 import User from '../models/User';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
+import cuid from 'cuid'; // collision resistant id generator
+import funkyFruitNamer from '../utils/funkyFruitNamer'; //generates a random adjective-pronoun name
 
 
 // ===============================================================================================
-// GET /login ### Login Page
+// GET /api/login ### Login Page
 // ===============================================================================================
 
 exports.getLogin = (req, res) => {
-  res.send('Haya!!!');
+  res.json(req.user);
 };
 
 
 // ===============================================================================================
-// POST /login ### Sign In Page
+// POST /api/login ### Sign In Page
 // ===============================================================================================
 
 exports.postLogin = (req, res) => {
@@ -21,22 +23,26 @@ exports.postLogin = (req, res) => {
 };
 
 // ===============================================================================================
-// GET /register ### Sign In Page
+// GET /api/register ### Sign In Page
 // ===============================================================================================
 
 
 // ===============================================================================================
-// POST /register ### Register New Users
+// POST /api/register ### Register New Users
 // ===============================================================================================
+
+// const name = moniker.generator([moniker.adjective, moniker.noun], { glue: ' ' });
 
 exports.postRegister = (req, res) => {
+	
 	if (!req.body.email || !req.body.password) {
 		res.json({ success: false, message: 'Email and password is needed for registration.' })
 	} else {
 		let user = new User({ 
-			username: req.body.username,
+			username: funkyFruitNamer.getName(),
 			email: req.body.email,
-			password: req.body.password
+			password: req.body.password,
+			userId: cuid(),
 		});
 
 		user.save((err) => {
@@ -67,10 +73,10 @@ exports.postAuthenticate = (req, res) => {
 					if (isMatch && !err) {
 						// create token if password matches
 						let token = jwt.sign(user, process.env.JWT_SECRET, {
-							// expiration in 24 hours
-							expiresIn: 1440 
+							// expiration in 
+							expiresIn: 600
 						});
-						res.json({ success: true, token: 'JWT ' + token });
+						res.json({ success: true, token: token });
 					} else {
 						res.send({ success: false, message: 'Unable to authenticate. Password does not match.' })
 					}
@@ -82,5 +88,7 @@ exports.postAuthenticate = (req, res) => {
 
 // TEST ROUTE
 exports.getTestRoute = (req, res)=>{
+	
+	// req.user contains authenticated user -- passport.authenticate
 	res.json(req.user);
 }

@@ -21,7 +21,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 // Webpack hot loading in development
-const HMRPlugin = new webpack.HotModuleReplacementPlugin();
+const HMRPlugin = new webpack.HotModuleReplacementPlugin({ multiStep: true });
 
 const uglifyPlugin = new webpack.optimize.UglifyJsPlugin({minimize:true});
 
@@ -106,11 +106,19 @@ module.exports = {
     host: '0.0.0.0',
     port: 3000,
     proxy: {
-      '^/*': {
-        target: 'http://localhost:8080/',
-        secure: false
-      }
+      "/api/*": "http://localhost:8080"
     }
+  },
+
+  // path-resolver
+  resolve: {
+    modules: [
+      path.resolve('./client'),
+      path.resolve('./node_modules'),
+      path.resolve('./client/utils'),
+      path.resolve('./client/reducers'),
+      path.resolve('./client/actions')
+    ]
   },
 
   //entry file where the bundling happens

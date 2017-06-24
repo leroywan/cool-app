@@ -18,6 +18,12 @@ import mongoose from 'mongoose';
 import dummyData from './utils/dummyData';
 import User from './models/User';
 
+// config
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config';
+
 // controllers
 
 // application routes
@@ -37,6 +43,15 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({     
     extended: true
 }));
+
+
+// DEVELOPMENT ONLY CONFIGURATIONS------------------------------
+
+// const compiler = webpack(config);
+// app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+// app.use(webpackHotMiddleware(compiler));
+
+// -------------------------------------------------------------
 
 
 // ===============================================================================================
@@ -62,8 +77,10 @@ mongoose.connect(process.env.MONGOLAB_URI, (err) => {
 });
 
 // Initialize passport after database set up
+// passport will read jwt in the authorization header to check if User exist in the database
 app.use(passport.initialize());
 require('./config/passport')(passport);
+
 
 
 // ===============================================================================================

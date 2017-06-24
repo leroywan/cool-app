@@ -13,13 +13,15 @@ const mapStateToProps = state => {
 
 class About extends React.Component {
 
-  render() {
+  render(props) {
 
+    console.log(props);
+    
     return (
     	<div>
 	    	<Navigation></Navigation>
 	        <h1>This is the About Page</h1>
-	        <p>{ this.props.searchQuery }</p>
+	        <p>Hi User { this.props.match.params.userId }</p>
 	        <Footer></Footer>
         </div>
     );

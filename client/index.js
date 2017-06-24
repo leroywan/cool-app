@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './modules/App.jsx';
+import Routes from './modules/Routes.jsx';
 
-let router = <BrowserRouter><App></App></BrowserRouter>;
+let router = <BrowserRouter><Routes></Routes></BrowserRouter>;
 
 ReactDOM.render(router, document.getElementById('root'));

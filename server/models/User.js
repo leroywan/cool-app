@@ -4,9 +4,10 @@ import bcrypt from 'bcrypt';
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: { type: String, required: true },
+  username: { type: String },
   email: { type: String, lowercase: true, unique: true, required: true },
   password: { type: String, required: true },
+  userId: { type: String, required: true, unique: true },
   role: { type: String, enum: ['Normal', 'Business', 'Admin'], default: 'Normal' },
   dateJoined: { type: 'Date', default: Date.now, required: true },
 });

@@ -9,14 +9,15 @@ module.exports = (passport) => {
 	opts.jwtFromRequest = passportJwt.ExtractJwt.fromAuthHeader(); 
 	opts.secretOrKey = process.env.JWT_SECRET;
 	passport.use(new passportJwt.Strategy(opts, (jwtPayload, done)=>{
-		User.findById(jwtPayload._doc._id, (err, user)=>{
-			if (err) { return done(err, false) };
+		User.find({ userId: jwtPayload._doc.userId }, (err, user)=>{
+			if (err) { 
+				return done(err, false) 
+			};
 			if (user) { 
-				done(null, user) ;
+				done(null, user[0]) ;
 			} else {
 				done(null, false);
 			}
-		});
+		}).select('username userId email');
 	}));
-
 };

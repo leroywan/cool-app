@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
-import { setSearch } from '../../../App.Actions'
-import SearchBar from '../SearchBar.jsx'
+import { setSearch } from 'actions/searchBarActions'
+import SearchBar from '../components/SearchBar.jsx'
 
 
 const clearInput = ()=> { document.getElementById('searchInput').value = ''; }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    searchQuery: state.app.searchQuery
+    searchQuery: state.searchBar.searchQuery
   }
 }
 

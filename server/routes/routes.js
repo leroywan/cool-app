@@ -10,11 +10,12 @@ const userRoutes = express.Router();
 
 
 exports.setUserRoutes = (app)=>{
-	userRoutes.get('/login', passport.authenticate('jwt', { session: false }), userController.getLogin);
+	userRoutes.get('/login', passport.authenticate('jwt', {session: false}), userController.getLogin);
 	userRoutes.post('/login', userController.postLogin);
 	userRoutes.post('/register', userController.postRegister);
 	userRoutes.post('/authenticate', userController.postAuthenticate);
-	userRoutes.get('/testRoute', passport.authenticate('jwt', { session: false }), userController.getTestRoute);
+	userRoutes.get('/testRoute', passport.authenticate('jwt', {session: false}), userController.getTestRoute);
+	userRoutes.get('/user/profile/:userId')
 
-	app.use('/', userRoutes);
+	app.use('/api', userRoutes);
 }
