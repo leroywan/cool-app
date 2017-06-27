@@ -15,9 +15,46 @@ export function receiveUserInfo(user) {
 	return {
 		type: RECEIVE_USER_INFO,
 		userInfo: user,
-		isLoggedIn: true,
 		isFetching: false,
-		loggedInAt: Date.now()
+	}
+}
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export function loginSuccess() {
+	return {
+		type: LOGIN_SUCCESS,
+		isAuthenticating: false,
+		isLoggedIn: true,
+		isAuthenticated: true,
+		loggedInAt: Date.now(),
+	}
+}
+
+export const AUTH_JWT = 'AUTH_JWT';
+export function authJwt() {
+	return {
+		type: AUTH_JWT,
+		isAuthenticating: true,
+	}
+}
+
+export const AUTH_JWT_SUCCESS = 'AUTH_JWT_SUCCESS';
+export function authJwtSuccess() {
+	return {
+		type: AUTH_JWT_SUCCESS,
+		isAuthenticating: false,
+		isLoggedIn: true,
+		isAuthenticated: true,
+	}
+}
+
+export const AUTH_JWT_FAIL = 'AUTH_JWT_FAIL';
+export function authJwtFail() {
+	return {
+		type: AUTH_JWT_FAIL,
+		isAuthenticating: false,
+		isLoggedIn: false,
+		isAuthenticated: false,
 	}
 }
 
@@ -31,6 +68,7 @@ export function authenticateUser(email, password) {
         	const token = res.data.token;
           auth.addJwtToLocal(token);
           dispatch(receiveUserInfo(auth.getJwtUser(token)));
+          dispatch(loginSuccess());
           toast.success('Successfully signed in!');
         } else {
           toast.error(res.data.message);

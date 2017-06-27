@@ -19,10 +19,8 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
-    const welcome = this.props.state.auth.isLoggedIn ? <h1> Hello { this.props.state.auth.userInfo.username }!</h1> : <h1>Hi Stranger!</h1>
     return (
       <div>
-        { welcome }
         <form  
         method="POST" 
         onSubmit={ (e)=> { this.props.handleLoginSubmit(e, this.state.loginEmail, this.state.loginPassword) } }>
@@ -35,3 +33,4 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+

@@ -76,7 +76,7 @@ if (DEVELOPMENT) {
     // entry point for the app
     './client/index.js',
   ]
-	plugins.push(HMRPlugin);
+	plugins.push(HMRPlugin, uglifyPlugin);
 } else {
 
   var entry = [
@@ -117,7 +117,7 @@ module.exports = {
       path.resolve('./node_modules'),
       path.resolve('./client/utils'),
       path.resolve('./client/reducers'),
-      path.resolve('./client/actions')
+      path.resolve('./client/actions'),
     ]
   },
 

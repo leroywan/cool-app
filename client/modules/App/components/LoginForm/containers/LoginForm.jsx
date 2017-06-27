@@ -20,13 +20,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
     handleLoginSubmit: (e, loginEmail, loginPassword) => {
       e.preventDefault();
       dispatch(authenticateUser( loginEmail, loginPassword ));
     }
   }
 }
+
+
 
 const LoginFormContainer = connect(
   mapStateToProps,

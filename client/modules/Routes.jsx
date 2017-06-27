@@ -2,10 +2,7 @@ import React from 'react';
 import { Router, Route, Link, Switch, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
-// import { createStore, applyMiddleware } from 'redux';
-// import thunk from 'redux-thunk';
-// import { createLogger } from 'redux-logger'
+import { Provider, connect } from 'react-redux';
 import store from '../store.js';
 
 import Home from './Pages/Home/Home.jsx';
@@ -25,15 +22,22 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css'; 
 
 import auth from 'utils/auth';
+import { authJwtSuccess, authJwtFail } from 'actions/authActions';
+
 
 
 // enable tap event
 injectTapEventPlugin();
 
-// const loggerMiddleware = createLogger()
-// let store = createStore(rootReducer, applyMiddleware(thunk, loggerMiddleware));
-
 export default class Routes extends React.Component {
+
+	componentWillMount() {
+		if (auth.isAuthenticated()) {
+			store.dispatch(authJwtSuccess());
+		} else {
+			store.dispatch(authJwtFail());
+		}
+	}
 
   render() {
   	auth.setAuthorizationHeader();
