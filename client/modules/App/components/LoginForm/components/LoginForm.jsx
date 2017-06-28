@@ -1,5 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+
+import auth from 'utils/auth';
 
 export default class LoginForm extends React.Component {
 
@@ -29,6 +31,7 @@ export default class LoginForm extends React.Component {
           <button type="submit">Login</button>
         </form>
         <button onClick={ ()=> { console.log(this.props) } }>show state tree</button>
+        <button onClick={ ()=>{ auth.refreshJwt() } }>Refresh Token</button>
       </div>
     );
   }

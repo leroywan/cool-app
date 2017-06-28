@@ -2,22 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
-import { authJwtSuccess, authJwtFail } from 'actions/authActions';
+import { authSuccess, authFail } from 'actions/authActions';
 import auth from 'utils/auth';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    isAuthenticating: state.auth.isAuthenticating
+    auth: state.auth
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     signOut: () => {
-      console.log('signing out...')
-      auth.signOut();
-      dispatch(authJwtFail());
+      auth.removeJwtFromLocal();
+      dispatch(authFail());
     }
   }
 }

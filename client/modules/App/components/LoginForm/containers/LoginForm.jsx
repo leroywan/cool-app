@@ -11,7 +11,6 @@ import { authenticateUser } from 'actions/authActions';
 
 import LoginForm from '../components/LoginForm.jsx';
 
-
 const mapStateToProps = (state, ownProps) => {
   return {
     state

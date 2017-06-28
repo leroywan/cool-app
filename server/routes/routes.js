@@ -14,6 +14,7 @@ exports.setUserRoutes = (app)=>{
 	userRoutes.post('/login', userController.postLogin);
 	userRoutes.post('/register', userController.postRegister);
 	userRoutes.post('/authenticate', userController.postAuthenticate);
+	userRoutes.post('/refreshJwt', passport.authenticate('jwt', {session: false}), userController.postRefreshJwt);
 	userRoutes.get('/testRoute', passport.authenticate('jwt', {session: false}), userController.getTestRoute);
 	userRoutes.get('/user/profile/:userId')
 

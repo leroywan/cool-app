@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import Navigation from '../components/Header/Navigation.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 
+import axios from 'axios';
+import auth from 'utils/auth';
 
 const mapStateToProps = state => {
   return {
@@ -13,13 +15,25 @@ const mapStateToProps = state => {
 
 class About extends React.Component {
 
-  render(props) {
+  handleSubmit  = (e) => {
+    e.preventDefault();
+    axios.get('/api/testRoute').then(
+      (res)=> {
+        console.log(res.data);
+      }
+    ).catch(err=>{ console.log(err) })
+  }
 
-    
+  render(props) {
     return (
     	<div>
 	    	<Navigation></Navigation>
 	        <h1>This is the About Page</h1>
+           <form  
+          method="GET" 
+          onSubmit={ (e)=> { this.handleSubmit(e) } }>
+            <button type="submit">Test Route</button>
+          </form>
 	        <Footer></Footer>
         </div>
     );

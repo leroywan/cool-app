@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import cuid from 'cuid'; // collision resistant id generator
 import funkyFruitNamer from '../utils/funkyFruitNamer'; //generates a random adjective-pronoun name
 
+import jwtDecode from 'jwt-decode';
+
 
 // ===============================================================================================
 // GET /api/login ### Login Page
@@ -57,7 +59,7 @@ exports.postRegister = (req, res) => {
 
 
 // ===============================================================================================
-// POST /api/authenticate ### Authenticate Users
+// POST /api/authenticate ### Authenticate Users and Create Jwt Token
 // ===============================================================================================
 
 exports.postAuthenticate = (req, res) => {
@@ -68,7 +70,7 @@ exports.postAuthenticate = (req, res) => {
 			if (!user) {
 				res.send({ success: false, message: 'Unable to authenticate. User not found.' })
 			} else {
-				// compare hased password ### see: /models/User.js 
+				// compare to hashed password ### see: /models/User.js 
 				user.comparePassword(req.body.password, (err, isMatch)=>{
 					if (isMatch && !err) {
 						// create token if password matches
@@ -78,7 +80,7 @@ exports.postAuthenticate = (req, res) => {
 						});
 						res.json({ success: true, token: token });
 					} else {
-						res.send({ success: false, message: 'Unable to authenticate. Password does not match.' })
+						res.json({ success: false, message: 'Unable to authenticate. Password does not match.' })
 					}
 				})
 			};
@@ -86,9 +88,35 @@ exports.postAuthenticate = (req, res) => {
 }
 
 
+// ===============================================================================================
+// POST /api/refreshJwt ### Refresh Jwt Token 
+// ===============================================================================================
+
+exports.postRefreshJwt = (req, res) => {
+	let user = req.body;
+
+	User.findOne({ userId: req.body.userId }, (err, user) => {
+		if (err) throw err;
+
+		if (!user) {
+			res.json({ success: false, message: 'no user found' })
+		} else {
+			let token = jwt.sign(user, process.env.JWT_SECRET, {
+				expiresIn: 600
+			})
+
+			res.json({ success: true, token: token })
+		}
+	})
+
+	// let token = jwt.sign(user, process.env.JWT_SECRET, {
+	// 	expiresIn: 120	
+	// })
+}
+
 // TEST ROUTE
 exports.getTestRoute = (req, res)=>{
-	
+
 	// req.user contains authenticated user -- passport.authenticate
 	res.json(req.user);
 }

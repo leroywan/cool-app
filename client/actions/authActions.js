@@ -38,20 +38,20 @@ export function authJwt() {
 	}
 }
 
-export const AUTH_JWT_SUCCESS = 'AUTH_JWT_SUCCESS';
-export function authJwtSuccess() {
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export function authSuccess() {
 	return {
-		type: AUTH_JWT_SUCCESS,
+		type: AUTH_SUCCESS,
 		isAuthenticating: false,
 		isLoggedIn: true,
 		isAuthenticated: true,
 	}
 }
 
-export const AUTH_JWT_FAIL = 'AUTH_JWT_FAIL';
-export function authJwtFail() {
+export const AUTH_FAIL = 'AUTH_FAIL';
+export function authFail() {
 	return {
-		type: AUTH_JWT_FAIL,
+		type: AUTH_FAIL,
 		isAuthenticating: false,
 		isLoggedIn: false,
 		isAuthenticated: false,

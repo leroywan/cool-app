@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux';
-import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_JWT_SUCCESS, AUTH_JWT_FAIL } from 'actions/authActions';
+import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_SUCCESS, AUTH_FAIL } from 'actions/authActions';
 
-export default function loginForm(state = [], action) {
+const initialState = {
+	isAuthenticated: false,
+	isAuthenticating: false,
+}
+
+export default function auth(state = [], action) {
 
 	switch (action.type) {
 		case (REQUEST_LOGIN):
@@ -16,7 +21,6 @@ export default function loginForm(state = [], action) {
 				...state,
 				userInfo: action.userInfo,
 				isFetching: action.isFetching,
-
 			}
 
 		case (LOGIN_SUCCESS):
@@ -28,15 +32,15 @@ export default function loginForm(state = [], action) {
 				loggedInAt: action.loggedInAt,
 			}
 
-		case (AUTH_JWT_SUCCESS):
+		case (AUTH_SUCCESS):
 			return {
 				...state, 
 				isAuthenticating: action.isAuthenticating,
 				isLoggedIn: action.isLoggedIn,
-				isAuthenticated: action.isAuthenticated,
+				isAuthenticated: action.isAuthenticated
 			}
 
-		case (AUTH_JWT_FAIL):
+		case (AUTH_FAIL):
 			return {
 				...state,
 				isAuthenticating: action.isAuthenticating,

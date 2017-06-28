@@ -22,26 +22,35 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css'; 
 
 import auth from 'utils/auth';
-import { authJwtSuccess, authJwtFail } from 'actions/authActions';
+import { authSuccess, authFail, receiveUserInfo } from 'actions/authActions';
 
 
 
 // enable tap event
 injectTapEventPlugin();
 
+// authenticate jwt everytime user change pages
+const authenticateJwt = () => {
+	if (auth.isAuthenticated()) {
+		store.dispatch(authSuccess());
+		store.dispatch(receiveUserInfo(auth.getJwtUser()));
+		auth.setAuthorizationHeader();
+	} else {
+		store.dispatch(authFail());
+	}
+}
+
 export default class Routes extends React.Component {
 
 	componentWillMount() {
-		if (auth.isAuthenticated()) {
-			store.dispatch(authJwtSuccess());
-		} else {
-			store.dispatch(authJwtFail());
-		}
+		authenticateJwt();
+	}
+
+	componentWillUpdate() {
+		authenticateJwt();
 	}
 
   render() {
-  	auth.setAuthorizationHeader();
-
     return (
     	<div>
 	    	<Provider store={store}> 
