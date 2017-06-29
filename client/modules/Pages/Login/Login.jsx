@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Navigation from '../components/Header/Navigation.jsx';
-import Footer from '../components/Footer/Footer.jsx';
+import Navigation from '../../App/components/Header/Navigation.jsx';
+import Footer from '../../App/components/Footer/Footer.jsx';
 import LoginForm from '../../App/components/LoginForm/LoginForm.jsx';
 
-
-import styles from './Login.scss';
 
 
 export default class Login extends React.Component {

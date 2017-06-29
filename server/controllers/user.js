@@ -1,10 +1,10 @@
 import User from '../models/User';
 import passport from 'passport';
-import jwt from 'jsonwebtoken';
 import cuid from 'cuid'; // collision resistant id generator
 import funkyFruitNamer from '../utils/funkyFruitNamer'; //generates a random adjective-pronoun name
 
 import jwtDecode from 'jwt-decode';
+import jwt from 'jsonwebtoken-refresh'; //has an extra 'refresh' method
 
 
 // ===============================================================================================
@@ -92,22 +92,30 @@ exports.postAuthenticate = (req, res) => {
 // POST /api/refreshJwt ### Refresh Jwt Token 
 // ===============================================================================================
 
+// can only be refreshed if user already has an existing, valid, token. 
 exports.postRefreshJwt = (req, res) => {
-	let user = req.body;
 
-	User.findOne({ userId: req.body.userId }, (err, user) => {
-		if (err) throw err;
+	var refreshed = jwt.refresh(req.body, 600 ,process.env.JWT_SECRET);
 
-		if (!user) {
-			res.json({ success: false, message: 'no user found' })
-		} else {
-			let token = jwt.sign(user, process.env.JWT_SECRET, {
-				expiresIn: 600
-			})
+	res.json({ success: true, token: refreshed });
 
-			res.json({ success: true, token: token })
-		}
-	})
+
+
+	// find user in database and create token... 
+	//this runs on every page change so there might be a more efficient way to do it in the future
+	// User.findOne({ userId: user.userId }, (err, user) => {
+	// 	if (err) throw err;
+
+	// 	if (!user) {
+	// 		res.json({ success: false, message: 'no user found' })
+	// 	} else {
+	// 		let token = jwt.sign(user, process.env.JWT_SECRET, {
+	// 			expiresIn: 600
+	// 		})
+
+	// 		res.json({ success: true, token: token })
+	// 	}
+	// })
 
 	// let token = jwt.sign(user, process.env.JWT_SECRET, {
 	// 	expiresIn: 120	

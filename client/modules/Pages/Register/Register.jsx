@@ -1,11 +1,8 @@
 import React from 'react';
 
-import Navigation from '../components/Header/Navigation.jsx';
-import Footer from '../components/Footer/Footer.jsx';
+import Navigation from '../../App/components/Header/Navigation.jsx';
+import Footer from '../../App/components/Footer/Footer.jsx';
 import RegistrationForm from '../../App/components/RegistrationForm/RegistrationForm.jsx';
-
-
-import styles from './Register.scss';
 
 
 export default class Register extends React.Component {

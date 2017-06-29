@@ -5,11 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 import store from '../store.js';
 
-import Home from './Pages/Home/Home.jsx';
 import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Register/Register.jsx';
 import About from './Pages/About/About.jsx';
 import NotFound from './Pages/NotFound/NotFound.jsx';
+import App from './App/App.jsx';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 /*
@@ -19,7 +19,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css'; 
 
 import auth from 'utils/auth';
 import { authSuccess, authFail, receiveUserInfo } from 'actions/authActions';
@@ -34,6 +33,7 @@ const authenticateJwt = () => {
 	if (auth.isAuthenticated()) {
 		store.dispatch(authSuccess());
 		store.dispatch(receiveUserInfo(auth.getJwtUser()));
+		auth.refreshJwt();
 		auth.setAuthorizationHeader();
 	} else {
 		store.dispatch(authFail());
@@ -56,7 +56,7 @@ export default class Routes extends React.Component {
 	    	<Provider store={store}> 
 		    	<MuiThemeProvider>
 			      <Switch>
-					    <Route exact path='/' component={Home}/>
+					    <Route exact path='/' component={App}/>
 					    <Route exact path='/login' component={Login}/>
 					    <Route exact path='/register' component={Register}/>
 					    <Route exact path='/about' component={About}/>

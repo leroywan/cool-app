@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_SUCCESS, AUTH_FAIL } from 'actions/authActions';
+import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_SUCCESS, AUTH_FAIL, LOGOUT_SUCCESS } from 'actions/authActions';
 
 const initialState = {
 	isAuthenticated: false,
@@ -43,6 +43,13 @@ export default function auth(state = [], action) {
 		case (AUTH_FAIL):
 			return {
 				...state,
+				isAuthenticating: action.isAuthenticating,
+				isLoggedIn: action.isLoggedIn,
+				isAuthenticated: action.isAuthenticated,
+			}
+
+		case (LOGOUT_SUCCESS):
+			return {
 				isAuthenticating: action.isAuthenticating,
 				isLoggedIn: action.isLoggedIn,
 				isAuthenticated: action.isAuthenticated,

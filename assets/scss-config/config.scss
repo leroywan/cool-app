@@ -17,7 +17,11 @@ $font1: "Roboto";
 body {
 	margin: 0;
 	font-family: $font1;
+}
 
+.page {
+	background: $yellow;
+	height: 800px;
 }
 
 

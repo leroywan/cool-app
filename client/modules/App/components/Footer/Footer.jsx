@@ -5,9 +5,6 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 
-import styles from './Footer.css';
-
-
 export default class Footer extends React.Component {
 
   render() {

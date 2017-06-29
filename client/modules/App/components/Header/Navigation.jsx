@@ -8,7 +8,7 @@ import MapsRestaurant from 'material-ui/svg-icons/maps/restaurant';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import styles from './Navigation.scss';
+// import styles from './Navigation.scss';
 
 // Component that displays Sign Up or User depending on auth
 const ProfileOrJoin = authProvider(

@@ -15,7 +15,7 @@ SETUP PLUGINS
 // Read more: https://webpack.js.org/plugins/html-webpack-plugin/
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './client/index.html',
+  template: __dirname + '/client/index.html',
   filename: 'index.html',
   inject: 'body'
 })
@@ -39,7 +39,7 @@ const autoprefixer = require('autoprefixer');
 // This plugin copies local files to the build folder
 const CopyWebpack = require('copy-webpack-plugin');
 const copyWebpackPlugin = new CopyWebpack([
-  { from: './assets', to: './assets' }
+  { from: (__dirname + '/assets'), to: (__dirname + '/assets') }
 ])
 
 // Extract text from a bundle into a separate file
@@ -74,14 +74,14 @@ if (DEVELOPMENT) {
     'webpack/hot/only-dev-server',
 
     // entry point for the app
-    './client/index.js',
+    __dirname + '/client/index.js',
   ]
 	plugins.push(HMRPlugin, uglifyPlugin);
 } else {
 
   var entry = [
     // entry point for the app
-    './client/index.js',
+    __dirname + '/client/index.js',
   ]
 
   plugins.push(uglifyPlugin);
@@ -175,9 +175,9 @@ module.exports = {
         'css-loader', 
         { loader: "sass-loader",
           options: {
-            data: "@import 'config'; ",
+            data: "@import 'variables'; ",
             includePaths: [
-              path.resolve(__dirname, './client/')
+              path.resolve(__dirname, (__dirname + '/client/styles/') )
             ]
           }
         }, 
@@ -189,29 +189,6 @@ module.exports = {
           }
         }]
       })
-
-      // [{
-      //   loader: 'style-loader',
-      //   query: { compact: false }
-      // }, {
-      //   loader: "css-loader",
-      //   query: { url: false, compact: false, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' },
-      // }, {
-      //   loader: "sass-loader",
-      //   options: {
-      //     data: "@import 'config'; ",
-      //     includePaths: [
-      //       path.resolve(__dirname, './client/')
-      //     ]
-      //   }
-      // }, {
-      //   loader: "postcss-loader",
-      //   options: {
-      //     plugins: function() {
-      //       return [autoprefixer];
-      //     }
-      //   }
-      // }]
     }
 
     ]

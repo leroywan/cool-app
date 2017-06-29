@@ -58,7 +58,17 @@ export function authFail() {
 	}
 }
 
-export function authenticateUser(email, password) {
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export function logoutSuccess() {
+	return {
+		type: LOGOUT_SUCCESS,
+		isAuthenticating: false,
+		isLoggedIn: false,
+		isAuthenticated: false,
+	}
+}
+
+export function authenticateUser(email, password, callback = () => {}) {
 	return (dispatch) => {
 		dispatch(requestLogin(email, password));
 		return axios.post('/api/authenticate', { email: email, password: password }).then(
@@ -67,9 +77,9 @@ export function authenticateUser(email, password) {
         if (res.data.success) {
         	const token = res.data.token;
           auth.addJwtToLocal(token);
-          dispatch(receiveUserInfo(auth.getJwtUser(token)));
+          dispatch(receiveUserInfo(auth.getJwtUser()));
           dispatch(loginSuccess());
-          toast.success('Successfully signed in!');
+          callback();
         } else {
           toast.error(res.data.message);
         }

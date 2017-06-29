@@ -7,9 +7,23 @@ const setAuthorizationHeader = () => {
 	axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('jwtToken');
 }
 
+const removeAuthorizationHeader = () => {
+	axios.defaults.headers.common['Authorization'] = '';
+}
+
+const jwtExists = () => {
+	let token = localStorage.getItem('jwtToken');
+	if (token === null) { 
+		return false
+	} else {
+		return true
+	}
+}
+
 const addJwtToLocal = (jwtToken) => {
 	if (jwtToken) {
 		localStorage.setItem('jwtToken', jwtToken);
+		setAuthorizationHeader();
 	} else {
 		console.log('No jwtToken found: ' + jwtToken);
 		return
@@ -24,8 +38,10 @@ const isAuthenticated = () => {
 		if (user.username && user.userId && user.password && user.email) {
 			return true
 		}
+		console.log('token cannot be authenticated')
 		return false
 	} else {
+		console.log('token canont be authenticated')
 		return false
 	}
 }
@@ -35,23 +51,36 @@ const removeJwtFromLocal = () => {
 }
 
 const getJwtFromLocal = () => {
-	return localStorage.getItem('jwtToken');
+	let token = localStorage.getItem('jwtToken');
+	if (token === null) {
+		console.log('No token found');
+	}
+	return 
+}
+
+const getJwtDecode = () => {
+	let token = localStorage.getItem('jwtToken');
+	if (token === null) {
+		console.log('No token found')
+		return 
+	} 
+	return jwtDecode(token)
 }
 
 const getJwtUser = () => {
-	let token = localStorage.getItem('jwtToken');
-	if (token === null) {
-		return 
-	} 
-	return jwtDecode(token)._doc
+	return getJwtDecode()._doc
 }
 
 const refreshJwt = () => {
-  let user = jwtDecode(getJwtFromLocal())._doc;
-  axios.post('/api/refreshJwt', user).then( res => {
-    addJwtToLocal(res.data.token);
-    setAuthorizationHeader();
-  })
+	setAuthorizationHeader();
+	if (jwtExists) {
+		let jwt = getJwtDecode();
+		axios.post('/api/refreshJwt', jwt).then( res => {
+	    addJwtToLocal(res.data.token);
+	    setAuthorizationHeader();
+	    console.log('token refreshed');
+	  })
+	}
 }
 
 
@@ -66,11 +95,15 @@ module.exports = {
 
 	getJwtFromLocal: getJwtFromLocal,
 
+	getJwtDecode: getJwtDecode,
+
 	getJwtUser: getJwtUser,
 
 	refreshJwt: refreshJwt,
 
 	setAuthorizationHeader: setAuthorizationHeader,
+
+	removeAuthorizationHeader: removeAuthorizationHeader
 
 }
 

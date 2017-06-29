@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
-import Navigation from '../components/Header/Navigation.jsx';
-import Footer from '../components/Footer/Footer.jsx';
+import Navigation from '../../App/components/Header/Navigation.jsx';
+import Footer from '../../App/components/Footer/Footer.jsx';
 
 import axios from 'axios';
 import auth from 'utils/auth';
@@ -21,7 +21,10 @@ class About extends React.Component {
       (res)=> {
         console.log(res.data);
       }
-    ).catch(err=>{ console.log(err) })
+    ).catch(err=>{ 
+      console.log(err);
+      window.location = "/login";
+    })
   }
 
   render(props) {
