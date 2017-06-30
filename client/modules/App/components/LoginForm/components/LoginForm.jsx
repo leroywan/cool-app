@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component {
 
   render() {
     return (
-      <div id="loginForm">
+      <div id="loginForm" className={ this.props.className }>
         <form  
         method="POST" 
         onSubmit={ (e)=> { this.props.handleLoginSubmit(e, this.state.loginEmail, this.state.loginPassword) } }>

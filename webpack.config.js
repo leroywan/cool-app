@@ -76,7 +76,7 @@ if (DEVELOPMENT) {
     // entry point for the app
     __dirname + '/client/index.js',
   ]
-	plugins.push(HMRPlugin, uglifyPlugin);
+  plugins.push(HMRPlugin, uglifyPlugin);
 } else {
 
   var entry = [
@@ -101,7 +101,7 @@ module.exports = {
 
   devServer: {
     historyApiFallback: true,
-    contentBase: '/',
+    contentBase: __dirname + '/',
     hot: true,
     host: '0.0.0.0',
     port: 3000,
@@ -160,7 +160,7 @@ module.exports = {
       test: /\.(jpe?g|gif|png|svg)$/i,
       use: [
       {
-        loader: 'url-loader?limit=10000',
+        loader: 'url-loader?limit=30000',
       }
       ]
     },

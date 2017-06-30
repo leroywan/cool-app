@@ -24,7 +24,7 @@ export default class RegistrationForm extends React.Component {
 
   render() {
     return (
-      <div id="registrationForm">
+      <div id="registrationForm" className={ this.props.className }>
         <form  
         method="POST" 
         onSubmit={ 

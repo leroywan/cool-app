@@ -1,5 +1,6 @@
 #registrationForm, #loginForm {
 	text-align: center;
+	font-family: $font1;
 
 	h2 {
 		color: white;
@@ -7,14 +8,8 @@
 
 	form {
 		background: rgb(0,0,0);
-		display: inline-block;
-		height: 400px;
 		height: 400px;
 		padding: 50px;
-		position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
 	}
 
 	input {

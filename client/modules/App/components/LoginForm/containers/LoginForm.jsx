@@ -5,6 +5,7 @@ import axios from 'axios';
 import auth from 'utils/auth';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import { withRouter } from 'react-router-dom';
 
 import { authenticateUser } from 'actions/authActions';
 
@@ -12,13 +13,13 @@ import LoginForm from '../components/LoginForm.jsx';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    state
+    state: state
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-  const callback = ()=> {
+  const welcomeUser = ()=> {
     toast('Welcome Back!', { position: toast.POSITION.BOTTOM_RIGHT });
   }
 
@@ -28,18 +29,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(authenticateUser( 
         loginEmail, 
         loginPassword,
-        callback()
+        welcomeUser()
       ));
-
+      ownProps.history.push('/about');
     }
   }
 }
 
 
 
-const LoginFormContainer = connect(
+const LoginFormContainer = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginForm)
+)(LoginForm));
 
 export default LoginFormContainer

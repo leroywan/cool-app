@@ -1,9 +1,17 @@
+/******************************************************************************************
+
+Main application file. 
+
+This component is where the main application lives and wraps around all smaller components.
+
+*******************************************************************************************/
+
 import React from 'react';
 
 import Navigation from './components/Header/Navigation.jsx';
 import Footer from './components/Footer/Footer.jsx';
 
-export default class Login extends React.Component {
+export default class App extends React.Component {
 
   render() {
 

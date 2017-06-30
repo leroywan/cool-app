@@ -1,11 +1,14 @@
-// -------------------------------------------------------------------------------------------
+/******************************************************************************************
 
-// THIS FILE SHOULD ONLY INCLUDE VARIABLES AND THEIR VALUES 
+This file contains all global scss variables
 
-// The variables will be injected into the beginning of every scss file
-// using sass-loader in webpack config
+The variables will be injected into the beginning of every scss file using sass-loader in 
+webpack config
 
-// -------------------------------------------------------------------------------------------
+NOTE: Don't put non-variables in this file or they will be loaded multiple times
+
+*******************************************************************************************/
+
 
 // =================================================================
 // COLORS
@@ -13,5 +16,7 @@
 $black: rgb(40, 40, 40);
 $red: #f93939;
 $yellow: #fbd94b;
+
+$font1: 'Roboto';
 
 

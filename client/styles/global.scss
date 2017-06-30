@@ -1,7 +1,14 @@
 /******************************************************************************************
 
-This file is for storing all fonts types.
+This file is for storing all custom css that is used globally throughout the application.
 
 *******************************************************************************************/
 
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+	font-family: 'Roboto';
+}
+
+.page {
+	text-align: center;
+}
