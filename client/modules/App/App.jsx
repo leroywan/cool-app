@@ -22,7 +22,7 @@ import auth from 'utils/auth';
 import { authSuccess, authFail, receiveUserInfo } from 'actions/userActions';
 
 // Import layouts
-import Navigation from './Header/Navigation.jsx';
+import Header from './Header/Header.jsx';
 import Footer from './Footer/Footer.jsx';
 
 // Import Pages
@@ -68,7 +68,7 @@ export default class App extends React.Component {
         <Provider store={store}> 
           <MuiThemeProvider>
             <div>
-              <Navigation/>
+              <Header/>
               <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/login' component={Login}/>
