@@ -35,7 +35,7 @@ const ProfileOrJoinButton = authProvider(
       </div>
 
     return (
-      { profileOrJoinButton }
+      <span>{ ProfileOrJoinButton }</span>
     )
   }
 )
