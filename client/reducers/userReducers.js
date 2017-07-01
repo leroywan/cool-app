@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_SUCCESS, AUTH_FAIL, LOGOUT_SUCCESS } from 'actions/authActions';
+import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_SUCCESS, AUTH_FAIL, LOGOUT_SUCCESS } from 'actions/userActions';
 
 const initialState = {
 	isAuthenticated: false,

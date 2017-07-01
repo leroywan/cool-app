@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 
-import { authenticateUser } from 'actions/authActions';
+import { authenticateUser } from 'actions/userActions';
 
 import LoginForm from '../components/LoginForm.jsx';
 

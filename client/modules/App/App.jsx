@@ -19,7 +19,7 @@ import { ToastContainer } from 'react-toastify';
 
 // Import utils and actions
 import auth from 'utils/auth';
-import { authSuccess, authFail, receiveUserInfo } from 'actions/authActions';
+import { authSuccess, authFail, receiveUserInfo } from 'actions/userActions';
 
 // Import layouts
 import Navigation from './Header/Navigation.jsx';

@@ -12,11 +12,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 // Component that displays Sign Up or User depending on auth
 const ProfileOrJoin = authProvider(
-  (props)=> {
-    const profileOrJoin = (props.auth.isAuthenticated) ? 
+  (props) => {
+    const profileOrJoin = (props.user.isAuthenticated) ? 
 
       <div>
-        <a href="#">Hi { props.auth.userInfo.username }</a>
+        <RaisedButton labelColor="rgb(255, 255, 255)" backgroundColor="rgb(40, 40, 40)">
+          <Link className="cta" to= { "/user/profile/" + props.user.userInfo.userId }>{ props.user.userInfo.username }</Link>
+        </RaisedButton>
         <button onClick={ ()=>{ props.signOut() } }>Sign Out</button>
       </div> 
 

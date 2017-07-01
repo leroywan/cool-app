@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import auth from 'reducers/authReducers';
+import user from 'reducers/userReducers';
 import searchBar from 'reducers/searchBarReducers';
 
 export default combineReducers({
-	auth,
+	user,
 	searchBar
 })

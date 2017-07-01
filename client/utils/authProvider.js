@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
-import { authSuccess, authFail, logoutSuccess } from 'actions/authActions';
+import { authSuccess, authFail, logoutSuccess } from 'actions/userActions';
 import auth from 'utils/auth';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    auth: state.auth
+    user: state.user
   }
 }
 
