@@ -118,6 +118,10 @@ module.exports = {
       path.resolve('./client/utils'),
       path.resolve('./client/reducers'),
       path.resolve('./client/actions'),
+      path.resolve('./client/modules'),
+      path.resolve('modules/App'),
+      path.resolve('modules/Pages'),
+      path.resolve('modules/Scenes'),
     ]
   },
 
