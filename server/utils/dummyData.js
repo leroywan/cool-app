@@ -1,4 +1,5 @@
 import User from '../models/User';
+import Restaurant from '../models/Restaurant';
 
 export default function () {
   User.count().exec((err, count) => {
@@ -26,4 +27,41 @@ export default function () {
       }
     });
   });
+
+  Restaurant.count().exec((err, count) => {
+    if (count > 0) {
+      return;
+    }
+
+    const restaurant1 = new Restaurant({
+      restaurantId: '1231029i3kllasdf',
+      generalInfo: {
+        displayName: "Asian Legend",
+        city: 'toronto',
+      }
+    })
+
+    const restaurant2 = new Restaurant({
+      restaurantId: 'asdflkn1232jnjfd',
+      generalInfo: {
+        displayName: "Happy Land",
+        city: 'ottawa',
+      }
+    })
+
+    const restaurant3 = new Restaurant({
+      restaurantId: 'asdflkn1232jnjnds',
+      generalInfo: {
+        displayName: "Mario World",
+        city: 'toronto',
+      }
+    })
+
+    Restaurant.create([restaurant1, restaurant2, restaurant3], (error) => {
+      if (!error) {
+        // console.log('ready to go....');
+      }
+    });
+
+  })
 }

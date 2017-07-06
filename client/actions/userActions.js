@@ -73,7 +73,6 @@ export function authenticateUser(email, password, callback = () => {}) {
 		dispatch(requestLogin(email, password));
 		return axios.post('/api/authenticate', { email: email, password: password }).then(
 			(res) => {
-				console.log('getting a response');
         if (res.data.success) {
         	const token = res.data.token;
           auth.addJwtToLocal(token);

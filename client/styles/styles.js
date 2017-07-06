@@ -16,6 +16,7 @@ sass-loader so it does not need to be included here.
 // =========================================================================================
 import './vendor/normalize.css';
 import './vendor/animate.min.css';
+import './vendor/bootstrap-grid.min.css';
 import 'react-toastify/dist/ReactToastify.min.css'; 
 
 // =========================================================================================

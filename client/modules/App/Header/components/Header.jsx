@@ -8,19 +8,17 @@ The header will be displayed on every 'Pages', 'Scenes', illustrated in the main
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import FlatButton from 'material-ui/FlatButton';
+import PrimaryNav from './PrimaryNav.jsx';
 
-import ProfileOrJoinButton from './ProfileOrJoinButton.jsx';
 
 export default class Header extends React.Component {
 
   render() {
     return (
-      <nav className="nav">
-        <Link className="logo" to="/"></Link>
-        <div className="nav-item"><FlatButton fullWidth={ true }><Link className="link" to="/about">How it Works?</Link></FlatButton></div>
-        <ProfileOrJoinButton/>
-      </nav>
+      <header id="main-header">
+        <Link id="logo" to="/"></Link>
+        <PrimaryNav/>
+      </header>
     );
   }
 }

@@ -19,7 +19,7 @@ const ProfileOrJoinButton = authProvider(
 
     const profileOrJoinButton = (props.user.isAuthenticated) ? 
 
-      <div className="cta-container">
+      <div>
         <RaisedButton labelColor="rgb(255, 255, 255)" backgroundColor="rgb(40, 40, 40)">
           <Link className="cta" to= { "/user/profile/" + props.user.userInfo.userId }>{ props.user.userInfo.username }</Link>
         </RaisedButton>
@@ -28,14 +28,12 @@ const ProfileOrJoinButton = authProvider(
 
       :
 
-      <div className="cta-container">
-        <RaisedButton labelColor="rgb(255, 255, 255)" backgroundColor="rgb(40, 40, 40)">
-          <Link className="cta" to="/login"><MapsRestaurant style={{ color: 'white' }}/> Join Now</Link>
-        </RaisedButton>
-      </div>
+      <RaisedButton labelColor="rgb(255, 255, 255)" backgroundColor="rgb(40, 40, 40)">
+        <Link className="cta" to="/login"><MapsRestaurant style={{ color: 'white' }}/><span> Join Now</span></Link>
+      </RaisedButton>
 
     return (
-      <span>{ ProfileOrJoinButton }</span>
+      <div className="cta-container">{ profileOrJoinButton }</div>
     )
   }
 )

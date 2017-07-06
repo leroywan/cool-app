@@ -11,12 +11,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => { 
   return {
+    handleSubmit: (searchQuery, locationPicked) => {
+      const query = { location: locationPicked, q: searchQuery };
+      const parsedQuery = queryString.stringify(query)
 
-    handleSubmit: (searchQuery) => {
-    	console.log('Your search query is: ' + searchQuery);
-      ownProps.history.push('/search/' + searchQuery);
+      ownProps.history.push({ pathname: '/search/?' + parsedQuery });
     }
 
   }

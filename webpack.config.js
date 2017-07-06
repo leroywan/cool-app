@@ -76,7 +76,7 @@ if (DEVELOPMENT) {
     // entry point for the app
     __dirname + '/client/index.js',
   ]
-  plugins.push(HMRPlugin, uglifyPlugin);
+  plugins.push(HMRPlugin);
 } else {
 
   var entry = [

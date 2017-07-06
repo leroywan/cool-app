@@ -21,6 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
   const welcomeUser = ()=> {
     toast('Welcome Back!', { position: toast.POSITION.BOTTOM_RIGHT });
+    ownProps.history.push('/')
   }
 
   return {
@@ -31,12 +32,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         loginPassword,
         welcomeUser()
       ));
-      ownProps.history.push('/about');
     }
   }
 }
-
-
 
 const LoginFormContainer = withRouter(connect(
   mapStateToProps,

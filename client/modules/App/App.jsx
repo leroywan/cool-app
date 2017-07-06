@@ -76,7 +76,7 @@ export default class App extends React.Component {
                 <Route exact path='/about' component={About}/>
                 <Route exact path='/testRoute' component={About}/>
                 <Route exact path='/user/profile/:userId' component={UserProfile} />
-                <Route exact path='/search/:searchQuery' component={SearchResults} />
+                <Route exact path='/search/:searchQuery?' component={SearchResults} />
                 <Route path='*' component={NotFound}/>
               </Switch>
               <Footer/>

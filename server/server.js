@@ -88,6 +88,7 @@ require('./config/passport')(passport);
 // ===============================================================================================
 
 appRoutes.setUserRoutes(app);
+appRoutes.setRestaurantRoutes(app);
 
 // Always return the main index.html, so react-router renders the route in the client
 app.get('*', (req, res) => {
