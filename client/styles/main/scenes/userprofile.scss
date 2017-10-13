@@ -1,0 +1,77 @@
+#user-profile.scene {
+	text-align: center;
+	background: $blue5;
+
+	.username {
+		color: $lightgrey;
+		font-size: 26px;
+	}
+
+	.profile-picture {
+		img {
+			border-radius: 50%;
+			width: 400px;
+	    height: 400px;
+	    object-fit: cover;
+		}
+	}
+
+	.input-area {
+		margin: 25px;
+
+		&>input {
+			border: none;
+	    outline: none;
+	    height: 40px;
+	    padding-left: 15px;
+	    padding-right: 25px;
+	    min-width: 400px;
+		}
+
+		&>button {
+			border: none;
+	    background: $yellow1;
+	    color: $blue5;
+	    height: 40px;
+	    padding-left: 15px;
+	    padding-right: 15px;
+
+	    &:hover {
+	    	background: $yellow2;
+	    	cursor: pointer;
+	    }
+		}
+
+	}
+
+	a.upload-toggle-btn {
+		color: $blue5;
+		border: 1px solid $yellow1;
+		background: $yellow1;
+		display: block;
+		text-decoration: none;
+		padding-left: 30px;
+		padding-right: 30px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		transition: 0.2s ease-in background;
+		margin: 15px;
+		width: 280px;
+		margin: auto;
+
+		&:hover {
+			background: $yellow2;
+			border: 1px solid $yellow1;
+		}
+
+		&.back {
+			background: $red;
+			border: none;
+
+			&:hover {
+				border: none;
+				background: $red - 20;
+			}
+		}
+	}
+}

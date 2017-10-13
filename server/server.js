@@ -16,7 +16,6 @@ import jwt from 'jsonwebtoken';
 // data
 import mongoose from 'mongoose';
 import dummyData from './utils/dummyData';
-import User from './models/User';
 
 // config
 import webpack from 'webpack';
@@ -73,6 +72,7 @@ mongoose.connect(process.env.MONGOLAB_URI, (err) => {
     throw err;
   }
 
+  // fill database with dummy data if empty
   dummyData();
 });
 
@@ -88,7 +88,7 @@ require('./config/passport')(passport);
 // ===============================================================================================
 
 appRoutes.setUserRoutes(app);
-appRoutes.setRestaurantRoutes(app);
+appRoutes.setProjectRoutes(app);
 
 // Always return the main index.html, so react-router renders the route in the client
 app.get('*', (req, res) => {
@@ -102,7 +102,7 @@ app.get('*', (req, res) => {
 
 app.listen((process.env.PORT || 3000), (error) => {
   if (!error) {
-    console.log('This app is running on port: '+ (process.env.PORT || 3000) +'!'); // eslint-disable-line
+    console.log('This app is running on port: '+ (process.env.PORT || 3000) +'!'); 
   }
 });
 

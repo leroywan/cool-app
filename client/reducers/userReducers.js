@@ -1,58 +1,119 @@
+/******************************************************************************************
+
+All user related reducers (Authentication, user profile...). 
+
+*******************************************************************************************/
+
+
 import { combineReducers } from 'redux';
-import { REQUEST_LOGIN, RECEIVE_USER_INFO, LOGIN_SUCCESS, AUTH_SUCCESS, AUTH_FAIL, LOGOUT_SUCCESS } from 'actions/userActions';
+import { 
+	REQUEST_LOGIN, 
+	LOGIN_SUCCESS, 
+	AUTH_SUCCESS, 
+	AUTH_FAIL, 
+	LOGOUT_SUCCESS,
+	FETCHING_USER, 
+	FETCH_USER_SUCCESS,
+	FETCH_USER_FAIL,
+	REQUEST_EDIT_PROFILE_PIC,
+	EDIT_PROFILE_PIC_SUCCESS,
+	EDIT_PROFILE_PIC_FAIL,
+} from 'actions/userActions';
 
 const initialState = {
-	isAuthenticated: false,
-	isAuthenticating: false,
+	isFetching: false,
+	isLoggedIn: false,
+	loggedInAt: null,
+	info: {
+		data: null,
+		loading: true,
+		error: null,
+	},
+	picUrl: null,
 }
 
-export default function auth(state = [], action) {
+export default function user(state = initialState, action) {
 
 	switch (action.type) {
-		case (REQUEST_LOGIN):
 
-			return {
-				...state, 
-				isFetching: action.isFetching,
-			}
-
-		case (RECEIVE_USER_INFO):
+		case (FETCHING_USER):
 			return {
 				...state,
-				userInfo: action.userInfo,
-				isFetching: action.isFetching,
+				info: {
+					data: null,
+					loading: true,
+					error: null,
+				}
 			}
 
-		case (LOGIN_SUCCESS):
+		case (FETCH_USER_SUCCESS):
 			return {
 				...state,
-				isAuthenticating: action.isAuthenticating,
-				isAuthenticated: action.isAuthenticated,
-				isLoggedIn: action.isLoggedIn,
-				loggedInAt: action.loggedInAt,
+				info: {
+					data: action.payload,
+					loading: false,
+					error: null,
+				},
+				picUrl: action.payload.profile.picUrl
+			}
+
+		case (FETCH_USER_FAIL):
+			let error = action.payload.message
+			return {
+				...state,
+				info: {
+					data:action.payload,
+					loading: false,
+					error: error, 
+				}
 			}
 
 		case (AUTH_SUCCESS):
 			return {
 				...state, 
-				isAuthenticating: action.isAuthenticating,
 				isLoggedIn: action.isLoggedIn,
-				isAuthenticated: action.isAuthenticated
 			}
 
 		case (AUTH_FAIL):
 			return {
 				...state,
-				isAuthenticating: action.isAuthenticating,
 				isLoggedIn: action.isLoggedIn,
-				isAuthenticated: action.isAuthenticated,
+			}
+
+		case (REQUEST_LOGIN):
+			return {
+				...state, 
+			}
+
+		case (LOGIN_SUCCESS):
+			return {
+				...state,
+				isLoggedIn: action.isLoggedIn,
+				loggedInAt: action.loggedInAt,
 			}
 
 		case (LOGOUT_SUCCESS):
 			return {
-				isAuthenticating: action.isAuthenticating,
+				...state,
 				isLoggedIn: action.isLoggedIn,
-				isAuthenticated: action.isAuthenticated,
+			}
+
+		case (REQUEST_EDIT_PROFILE_PIC): 
+			return {
+				...state,
+				isFetching: true,
+			}
+
+		case (EDIT_PROFILE_PIC_SUCCESS): 
+			return {
+				...state,
+				picUrl: action.picUrl,
+				isFetching: action.isFetching,
+			}
+		case (EDIT_PROFILE_PIC_FAIL): 
+			return {
+				...state,
+				isFetching: false,
 			}
 
 		default:

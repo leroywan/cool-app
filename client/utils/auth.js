@@ -20,6 +20,15 @@ const jwtExists = () => {
 	}
 }
 
+const jwtExpired = () => {
+	const jwt = jwtDecode(localStorage.getItem('jwtToken'));
+	if (jwt.exp < Date.now() / 1000) {
+	  return true
+	} else {
+		return false
+	}
+}
+
 const addJwtToLocal = (jwtToken) => {
 	if (jwtToken) {
 		localStorage.setItem('jwtToken', jwtToken);
@@ -34,14 +43,13 @@ const isAuthenticated = () => {
 	let token = localStorage.getItem('jwtToken');
 	if (token) {
 		let user = jwtDecode(token)._doc;
-		console.log(user);
 		if (user.username && user.userId && user.password && user.email) {
 			return true
 		}
 		console.log('token cannot be authenticated')
 		return false
 	} else {
-		console.log('token canont be authenticated')
+		console.log('token cannot be authenticated')
 		return false
 	}
 }
@@ -54,8 +62,9 @@ const getJwtFromLocal = () => {
 	let token = localStorage.getItem('jwtToken');
 	if (token === null) {
 		console.log('No token found');
+		return 
 	}
-	return 
+	return token
 }
 
 const getJwtDecode = () => {
@@ -71,22 +80,12 @@ const getJwtUser = () => {
 	return getJwtDecode()._doc
 }
 
-const refreshJwt = () => {
-	setAuthorizationHeader();
-	if (jwtExists) {
-		let jwt = getJwtDecode();
-		axios.post('/api/refreshJwt', jwt).then( res => {
-	    addJwtToLocal(res.data.token);
-	    setAuthorizationHeader();
-	    console.log('token refreshed');
-	  })
-	}
-}
-
 
 
 module.exports = {
 	// check user authentication by jwt token
+	jwtExists: jwtExists, 
+
 	isAuthenticated: isAuthenticated,
 
 	addJwtToLocal: addJwtToLocal,
@@ -98,8 +97,6 @@ module.exports = {
 	getJwtDecode: getJwtDecode,
 
 	getJwtUser: getJwtUser,
-
-	refreshJwt: refreshJwt,
 
 	setAuthorizationHeader: setAuthorizationHeader,
 

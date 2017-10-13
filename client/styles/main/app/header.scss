@@ -1,0 +1,66 @@
+$header-height: 80px;
+
+header#main-header {
+	position: relative;
+	height: $header-height;
+	box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+	background: $blue5;
+
+	#logo {
+		top: 10px;
+		left: 15px;
+		display: inline-block;
+		position: absolute;
+		width: 60px;
+		height: 60px;
+		background: url('/assets/images/logo.png');
+		background-repeat: no-repeat;
+		background-size: contain;
+		z-index: 10;
+	}
+
+	#primary-nav {
+		display: flex;
+		height: $header-height;
+		position: relative;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.nav-item {
+		display: inline-block;
+		margin-left: 15px;
+		margin-right: 15px;
+
+		a {
+			padding-left: 25px;
+			padding-right: 25px;
+			font-size: 14px;
+			color: $yellow1;
+			text-transform: uppercase;
+			text-decoration: none;
+			letter-spacing: 1px;
+		}
+	}
+
+	.logout > a {
+		transition: 0.2s ease-in color;
+		color: $grey;
+
+		&:hover {
+			color: $red;
+		}
+	}
+
+	.cta > a {
+    border: 1px solid;
+    padding: 8px;
+    transition: 0.2s ease-in background;
+
+    &:hover {
+    	border: 1px solid $yellow1;
+			background: $yellow1;
+			color: $blue5;
+    }
+	}
+}

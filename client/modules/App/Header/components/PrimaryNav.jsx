@@ -1,22 +1,53 @@
-/******************************************************************************************
-
-This component is used to container the primary navigation links within the header
-
-*******************************************************************************************/
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import FlatButton from 'material-ui/FlatButton';
+import auth from 'utils/auth';
 
-import ProfileOrJoinButton from './ProfileOrJoinButton.jsx';
+import { BounceLoader } from 'react-spinners';
 
-const PrimaryNav = () => {
-	return (
-		<nav id="primary-nav">
-      <div className="nav-item"><FlatButton fullWidth={ true }><Link to="/about">How it Works?</Link></FlatButton></div>
-      <div className="nav-item"><ProfileOrJoinButton/></div>
-    </nav>
-	)
+
+export default class PrimaryNav extends React.Component {
+
+  
+  render() {
+    let primaryNav;
+    if (this.props.state.user.isLoggedIn) {
+      let name = this.props.state.user.info.loading ? "" : "Hi, " + this.props.state.user.info.data.profile.firstName;
+      
+      primaryNav = (
+        <div>
+          <div className="nav-item">
+            <Link to= {"/profile?userId=" + auth.getJwtUser().userId }> { name }</Link>
+          </div>
+          <div className="nav-item logout">
+            <a href="#" onClick={ 
+              (e)=>{
+                e.preventDefault();
+                auth.removeJwtFromLocal();
+                this.props.handleLogout();
+              }
+            } >Logout</a>
+          </div>
+        </div>
+      )
+    } else {
+
+      primaryNav = (
+        <div>
+          <div className="nav-item">
+            <Link to="/about">About</Link>
+          </div>
+          <div className="cta nav-item">
+            <Link to="/">Login/Register</Link>
+          </div>
+        </div>
+      )
+    }
+    
+    return (
+      <div id="primary-nav">
+        { primaryNav }
+      </div>
+    )
+  }
 }
-
-export default PrimaryNav;

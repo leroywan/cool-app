@@ -1,0 +1,90 @@
+
+
+#home {
+
+	&.page {
+		background: $blue5;
+		display: flex;
+	}
+
+	.form-wrapper {
+		max-width: 600px;
+		margin: auto;
+		min-height: 400px;
+		background: $blue5;
+
+		.inputs {
+			display: flex;
+			align-items: center;
+		}
+
+		.info {
+			display: flex;
+			text-align: left;
+			align-items: left;
+			justify-content: center;
+			flex-direction: column;
+
+			h2 {
+				margin-top: 0;
+				color: $yellow1;
+			}
+
+			a {
+				color: $yellow1;
+			}
+		}
+	}
+
+	#loginForm, #registrationForm {
+		width: 100%;
+
+		.input-wrapper {
+			label {
+				color: $blue1;
+				font-size: 13px;
+				float: left;
+				margin-bottom: 6px;
+				text-transform: uppercase;
+			}
+
+			input {
+				margin-bottom: 20px;
+				width: 100%;
+				background: transparent;
+				outline: none;
+				height: 20px;
+				border: none;
+				color: $yellow1;
+				font-size: 16px;
+				border-bottom: 1px solid $blue1;
+			}
+
+			input:focus {
+				border-bottom: 1px solid $yellow1;
+			}
+		}
+
+		.submit-wrapper {
+			button {
+				background: $yellow1;
+				color: $blue5;
+				width: 100%;
+				border: none;
+		    display: block;
+		    height: 40px;
+		    margin: auto;
+		    font-size: 16px;
+		    text-transform: uppercase;
+		    transition: 0.2s ease-in color, 0.2s ease-in background;
+		    cursor: pointer;
+		    transition: 0.2s ease-in background;
+
+		    &:hover {
+		    	background: $yellow2;
+		    }
+			}
+		}
+	}
+}
+

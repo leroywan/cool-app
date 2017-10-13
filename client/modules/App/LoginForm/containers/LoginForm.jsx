@@ -19,18 +19,12 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-  const welcomeUser = ()=> {
-    toast('Welcome Back!', { position: toast.POSITION.BOTTOM_RIGHT });
-    ownProps.history.push('/')
-  }
-
   return {
     handleLoginSubmit: (e, loginEmail, loginPassword) => {
       e.preventDefault();
       dispatch(authenticateUser( 
         loginEmail, 
-        loginPassword,
-        welcomeUser()
+        loginPassword
       ));
     }
   }

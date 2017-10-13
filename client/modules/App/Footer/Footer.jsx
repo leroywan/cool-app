@@ -17,6 +17,11 @@ export default class Footer extends React.Component {
 
     return (
       <footer className='footer' >
+        <div className="social-media">
+          <a href="#"><img src="/assets/icons/fb.svg" /></a>
+          <a href="#"><img src="/assets/icons/insta.svg" /></a>
+          <a href="#"><img src="/assets/icons/twitter.svg" /></a>
+        </div>
         { developmentMode }
       </footer>
     );

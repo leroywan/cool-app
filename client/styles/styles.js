@@ -3,7 +3,7 @@
 Import all scss files here. All css code will be structured in the order that is imported 
 in this file. 
 
-NOTE: Keep each scss file independent of other files to prevent hardto debug problems. Use 
+NOTE: Keep each scss file independent of other files to prevent hard to debug problems. Use 
 IDs to wrap components that need to be styled. 
 
 NOTE: varables.scss will be injected at the top of each scss file through webpack 
@@ -24,22 +24,27 @@ import 'react-toastify/dist/ReactToastify.min.css';
 // =========================================================================================
 import fonts from './fonts.scss';  // keep the fonts at the top since others depend on it
 import global from './global.scss';
-import header from './main/layouts/header.scss';
-import footer from './main/layouts/footer.scss';
+import header from './main/app/header.scss';
+import footer from './main/app/footer.scss';
 
 // =========================================================================================
 // COMPONENTS
 // =========================================================================================
-import forms from './main/forms/forms.scss';
+import forms from './main/app/forms.scss';
 
+// =========================================================================================
+// SCENES
+// =========================================================================================
+import home from './main/scenes/home.scss';
+import dashboard from './main/scenes/dashboard.scss';
+import userprofile from './main/scenes/userprofile.scss';
+import createProject from './main/scenes/createProject.scss';
 
 // =========================================================================================
 // APP
 // =========================================================================================
-import home from './main/app/home.scss';
-
 
 // =========================================================================================
 // PAGES
 // =========================================================================================
-
+import pages from './main/pages/pages.scss';

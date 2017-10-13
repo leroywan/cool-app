@@ -20,18 +20,28 @@ export default class LoginForm extends React.Component {
     });
   }
 
+  // redirect to dashboard if already logged on 
+  componentWillUpdate(nextProps, nextState) {
+     if (this.props.state.user.isLoggedIn) {
+      this.props.history.push('/dashboard');
+    } 
+  }
+
   render() {
     return (
       <div id="loginForm" className={ this.props.className }>
         <form  
         method="POST" 
         onSubmit={ (e)=> { this.props.handleLoginSubmit(e, this.state.loginEmail, this.state.loginPassword) } }>
-          <h2>Login Here</h2>
-          <input onChange={ this.changeLoginEmail } type='email' name='email'></input>
-          <input onChange={ this.changeLoginPassword } type='password' name='password'></input>
-          <button type="submit">Login</button>
-          <button onClick={ (e)=>{ e.preventDefault(); console.log(this.props) } }>show state tree</button>
-          <button onClick={ (e)=>{ e.preventDefault(); auth.refreshJwt() } }>Refresh Token</button>
+          <div className="input-wrapper">   
+            <label htmlFor="email">Email</label>    
+            <input placeholder="" onChange={ this.changeLoginEmail } type='email' name='email'></input>
+            <label htmlFor="password">Password</label>  
+            <input placeholder="" onChange={ this.changeLoginPassword } type='password' name='password'></input> 
+          </div>
+          <div className="submit-wrapper">
+            <button type="submit">Log In</button>
+          </div>
         </form>
       </div>
     );

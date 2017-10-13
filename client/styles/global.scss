@@ -4,11 +4,25 @@ This file is for storing all custom css that is used globally throughout the app
 
 *******************************************************************************************/
 
+@keyframes fadeIn {
+	0% {
+		opacity :0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
 
 body {
 	font-family: 'Roboto';
 }
 
-.page {
-	text-align: center;
+.fade-in, .page, .scene {
+	animation: 0.3s ease-in fadeIn forwards;
+}
+
+.page, .scene {
+	padding: 15px;
+	min-height: calc(100vh - 160px);
 }

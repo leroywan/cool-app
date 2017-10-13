@@ -1,0 +1,29 @@
+#create-project.scene {
+	background: $blue5;
+	position: relative;
+
+	.title {
+		text-align: center;
+		color: $lightgrey;
+	}
+	
+	.new-project-button {
+    width: 200px;
+    height: 200px;
+    border: none;
+    background: $yellow1;
+    border-radius: 10px;
+    font-size: 22px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $blue5;
+    font-weight: 600;
+
+    &:hover {
+    	background: $yellow2;
+    	cursor: pointer;
+    }
+	}
+}

@@ -1,67 +1,85 @@
 import User from '../models/User';
-import Restaurant from '../models/Restaurant';
+import Project from '../models/Project';
+import cuid from 'cuid';
+import funkyFruitNamer from './funkyFruitNamer'; //generates a random adjective-pronoun name
+
 
 export default function () {
   User.count().exec((err, count) => {
-    if (count > 0) {
+    if (count > 3) {
       return;
     }
     
     const user1 = new User({
-      username: 'Sam',
-      email: 'somebody@email.com',
-      password: '123456',
-      role: 'Normal'
+      email: 'supermansam@email.com',
+      password: '123',
+      role: 'Normal',
+      userId: cuid(),
+      profile: {
+        firstName: funkyFruitNamer.getName(),
+        lastName: '(Dummy)',
+        picUrl: 'https://dl.dropboxusercontent.com/s/qkl2nrmap3sc7yp/elon.jpg?dl=0',
+      }
     })
 
     const user2 = new User({
-      username: 'Tom',
-      email: 'tom@email.com',
-      password: 'lololol',
-      role: 'Admin'
+      email: 'batmanbob@email.com',
+      password: '123',
+      role: 'Normal',
+      userId: cuid(),
+      profile: {
+        firstName: funkyFruitNamer.getName(),
+        lastName: '(Dummy)',
+        picUrl: 'https://dl.dropboxusercontent.com/s/qkl2nrmap3sc7yp/elon.jpg?dl=0',
+      }
     })
 
-    User.create([user1, user2], (error) => {
+    const user3 = new User({
+      email: 'ironmanigor@email.com',
+      password: '123',
+      role: 'Normal',
+      userId: cuid(),
+      profile: {
+        firstName: funkyFruitNamer.getName(),
+        lastName: '(Dummy)',
+        picUrl: 'https://dl.dropboxusercontent.com/s/qkl2nrmap3sc7yp/elon.jpg?dl=0',
+      }
+    })
+
+    User.create([user1, user2, user3], (error) => {
       if (!error) {
-        // console.log('ready to go....');
+        console.log('dummy users created...');
       }
     });
   });
 
-  Restaurant.count().exec((err, count) => {
-    if (count > 0) {
+
+  Project.count().exec((err, count) => {
+    if (count > 2) {
       return;
     }
-
-    const restaurant1 = new Restaurant({
-      restaurantId: '1231029i3kllasdf',
-      generalInfo: {
-        displayName: "Asian Legend",
-        city: 'toronto',
+    
+    const project1 = new Project({
+      projectId: cuid(),
+      admins: ['123456123413241', '1231231231231', '1234567882321'],
+      info: {
+        name: 'dummy'
       }
     })
 
-    const restaurant2 = new Restaurant({
-      restaurantId: 'asdflkn1232jnjfd',
-      generalInfo: {
-        displayName: "Happy Land",
-        city: 'ottawa',
+    const project2 = new Project({
+      projectId: cuid(),
+      admins: ['1234565i91', '12312312ojn231231', '1234fal567882321'],
+      info: {
+        name: 'dummy2'
       }
     })
 
-    const restaurant3 = new Restaurant({
-      restaurantId: 'asdflkn1232jnjnds',
-      generalInfo: {
-        displayName: "Mario World",
-        city: 'toronto',
-      }
-    })
-
-    Restaurant.create([restaurant1, restaurant2, restaurant3], (error) => {
+    Project.create([project1, project2], (error) => {
       if (!error) {
-        // console.log('ready to go....');
+        console.log('dummy projects created');
       }
     });
+  });
 
-  })
 }

@@ -1,9 +1,9 @@
 //config for babel. Read more at https://babeljs.io/docs/usage/babelrc/
 
 {
-		"plugins": ["transform-class-properties", "transform-object-rest-spread"],
+		"plugins": ["transform-class-properties", "transform-object-rest-spread", "emotion"],
 		
     "presets":[
-        "es2015", "react"     
+        "es2015", "react"  
     ]
 }

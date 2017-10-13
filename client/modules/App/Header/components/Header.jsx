@@ -8,15 +8,18 @@ The header will be displayed on every 'Pages', 'Scenes', illustrated in the main
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import PrimaryNav from './PrimaryNav.jsx';
+import PrimaryNav from '../containers/PrimaryNav.jsx';
 
 
-export default class Header extends React.Component {
+export default class Header extends React.Component {	
 
   render() {
+
+  	let logoLink = this.props.state.user.isLoggedIn ? <Link id="logo" to="/dashboard"></Link> : <Link id="logo" to="/"></Link>
+
     return (
       <header id="main-header">
-        <Link id="logo" to="/"></Link>
+        { logoLink }
         <PrimaryNav/>
       </header>
     );

@@ -11,9 +11,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (state, ownProps) => {
 	return {
-		doStuff: ()=> {
-			console.log('doing stuff');
-		}
+		
 	}
 }
 
